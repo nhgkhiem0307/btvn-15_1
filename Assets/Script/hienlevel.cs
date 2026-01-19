@@ -1,29 +1,25 @@
-using UnityEngine;
-using UnityEngine.UI; // Dùng ?? thao tác v?i UI
-using UnityEngine.Events; // Dùng cho s? ki?n nút
+ï»¿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class MenuLevelManager : MonoBehaviour
 {
     public Button[] levelButtons;
 
-    public Text messageText;
-
-
-
-
     private void Start()
     {
-
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < levelButtons.Length; i++)
         {
-            int levelIndex = i + 1; 
-            levelButtons[i].onClick.AddListener(() => OnLevelClicked(levelIndex));
+            int levelIndex = i + 1; // Ráº¤T QUAN TRá»ŒNG
+            levelButtons[i].onClick.AddListener(
+                () => SelectLevel(levelIndex)
+            );
         }
     }
 
-
-    private void OnLevelClicked(int level)
+    void SelectLevel(int level)
     {
-        messageText.text = $"Level {level}";
+        LevelData.currentLevel = level;
+        SceneManager.LoadScene("Gameplay");
     }
 }
